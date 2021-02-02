@@ -1,3 +1,4 @@
+// 这个js文件主要是将虚拟DOM转换成真实DOM
 import Element from './Element';
 
 // 创建虚拟节点VirtualDom
