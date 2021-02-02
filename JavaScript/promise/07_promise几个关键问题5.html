@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // promise异常穿透？
+    // （1）当使用promise的then链式调用时，可以在最后指定失败的回调
+    // （2）前面任何操作出了异常，都会传到最后失败的回调中处理
+
+    // 中断promise链？
+    // （1）当使用promise的then链式调用时，在中间中断，不再调用后面的回调函数
+    // （2）办法：在回调函数中返回一个pendding状态的promise对象
+    
+    new Promise((resolve, reject) => {
+      reject(1);
+    }).then(
+      value => {
+        console.log('onResolved1',value)
+        return 2;
+      },
+      reason => {throw reason}
+    ).then(
+      value => {
+        console.log('onResolved2', value);
+        return 3;
+      },
+      reason => {throw reason}
+    ).then(
+      value => {
+        console.log('onResolved3', value)
+      },
+      reason => {throw reason}
+    ).catch(reason=>{
+      console.log('onRejected1',reason)
+    })
+    // 只要下面有then，就会把结果继续往下传，无论是成功还是失败，
+    // 所以最后catch中获取到的就是通过一级级传下来的1
+  </script>
+</body>
+
+</html>

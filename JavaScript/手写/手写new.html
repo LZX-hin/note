@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 传入构造函数和参数
+    function myNew(constructor,...args){
+      let obj = Object.create(constructor.prototype);
+      let res = constructor.apply(obj,args)
+      return res instanceof Object ? res : obj;
+    }
+    function Dog(name){
+      this.name = name;
+      this.sayName=function(){
+        console.log(this.name)
+      }
+    }
+    let dog = myNew(Dog,'阿黄')
+    dog.sayName();
+
+    // 模拟new，其实清楚new一个构造函数的时候做了什么就很清晰了
+    // 1、隐式的创建一个新对象
+    // 2、这个对象的proto指向构造函数的prototype
+    // 3、使构造函数的this指向这个新对象
+    // 4、执行一遍构造函数，给这个新对象添加属性跟方法
+    // 5、如果构造函数没有显式的返回一个非空对象，那么就返回这个新对象
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "18012207",
+      "name": "旅游出行",
+      "font_class": "lvyouchuhang",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "18012208",
+      "name": "钱",
+      "font_class": "qian",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "18012209",
+      "name": "商务合作",
+      "font_class": "shangwuhezuo",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    }
+  ]
+}

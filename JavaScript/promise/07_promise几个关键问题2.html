@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 是先指定回调函数还是先改变状态？
+
+    // 可以先指定回调再改变状态，也可以反着过来
+    new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        resolve(1) // 后改变状态同时指定数据，异步执行回调函数
+      },1000)
+    }).then(value=>{ // 先指定resolved和rejected状态的回调函数，保存当前指定的回调函数
+      console.log('value',value)
+    },reason=>{
+      console.log('reason',reason)
+    })
+
+    // 先改变状态后指定回调函数，都可以
+    new Promise((resolve,reject)=>{
+      resolve(1) // 先改变状态同时指定数据
+    }).then(value=>{ // 后指定resolved和rejected状态的回调函数
+      console.log('value',value)
+    },reason=>{
+      console.log('reason',reason)
+    })
+  </script>
+</body>
+</html>
