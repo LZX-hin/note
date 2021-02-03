@@ -43,7 +43,7 @@ function vNodeWalk(oldNode, newNode, index){
     }
     childrenWalk(oldNode.children, newNode.children);
   }else{
-    // 这个是删除了节点
+    // 这个是更替了节点
     vnPatch.push({
       type: REPLACE,
       newNode
