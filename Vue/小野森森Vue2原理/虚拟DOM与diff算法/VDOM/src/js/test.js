@@ -2,13 +2,13 @@ const patches = {
   0: [
     {
       type: 'ATTR',
-      attr: 'list-wrap'
+      attrs: {'class': 'list-wrap'}
     }
   ],
   2: [
     {
       type: 'ATTR',
-      attr: 'title'
+      attrs: {'class': 'title'}
     }
   ],
   3: [
