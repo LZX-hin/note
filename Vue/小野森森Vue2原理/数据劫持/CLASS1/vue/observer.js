@@ -1,7 +1,12 @@
 import defineReactive from './reactive';
+import { arrMethods } from './array';
+import observeArr from './observeArr';
 
 function Observer(data){
   if(Array.isArray(data)){
+    data.__proto__ = arrMethods;
+    // 如果这里还是数组
+    observeArr(data);
   }else{
     this.walk(data);
   }

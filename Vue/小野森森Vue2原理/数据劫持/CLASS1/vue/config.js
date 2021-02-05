@@ -5,6 +5,7 @@ var ARR_METHODS = [
   'unshift',
   'splice',
   'sort',
+  'reverse'
 ]
 
 export {
