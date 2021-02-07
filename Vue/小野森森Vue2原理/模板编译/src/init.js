@@ -1,6 +1,6 @@
 import { initState } from "./state";
 import { compileToRenderFunction } from './compiler';
-import { mountComponent } from './lifecycle';
+// import { mountComponent } from './lifecycle';
 
 function initMixin (Vue) {
   Vue.prototype._init = function (options) {
@@ -27,6 +27,7 @@ function initMixin (Vue) {
       let template = options.template;
 
       if (!template && el) {
+        // dom.outerHTML包含自己，而dom.innerHTML不包含自己
         template = el.outerHTML;
       }
 
@@ -34,7 +35,7 @@ function initMixin (Vue) {
       options.render = render;
     }
 
-    mountComponent(vm);
+    // mountComponent(vm);
   } 
 }
 
