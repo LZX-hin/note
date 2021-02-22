@@ -1,6 +1,6 @@
 console.log('print.js被加载')
 function print(){
-  const content = '11 webpack'
+  const content = 'hello print！！！'
   console.log(content)
 }
 

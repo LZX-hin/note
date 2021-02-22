@@ -11,7 +11,7 @@ function add(x, y) {
   return x + y;
 }
 
-console.log(add(1, 3));
+console.log(add(1, 5));
 
 if (module.hot) {
   // 一旦 module.hot 为true，说明开启了HMR功能。 --> 让HMR功能代码生效
