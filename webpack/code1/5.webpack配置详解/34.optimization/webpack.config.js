@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { resolve } = require('path');
 
 module.exports = {
@@ -60,6 +61,17 @@ module.exports = {
     // 因为我们的入口文件为了可以引入其他文件，就要记住这些引入的文件的哈希值，一旦这些引入文件修改了，我们的入口文件是不能修改的，换言之入口文件从缓存中加载而不是重新从服务器请求，因此这个runtimeChunk配置是解决这个bug
     runtimeChunk: {
       name: entrypoint => `runtime-${entrypoint.name}`
-    }
+    },
+    minimizer: [
+      // 配置生产环境的压缩方案：js和css
+      new TerserWebpackPlugin({
+        // 开启缓存
+        cache: true,
+        // 开启多进程打包
+        parallel: true,
+        // 启用source-map
+        sourceMap: true
+      })
+    ]
   }
 }
