@@ -36,9 +36,9 @@ export default defineComponent({
   // · (重要)参数context：是一个对象，里面有attrs对象（获取当前组件标签上的属性，但是该属性不能被props接收），emit方法（分发事件），slots对象（插槽）
   // 总结：可以通过props获取父组件传过来且在props中接收了的数据；可以通过context.attrs获取组件标签中没有被props接收的属性，相当于$attrs；可以通过context.emit()来触发父组件v-on传进来的事件，相当于Vue2的this.$emit()
 
-  setup(props,context){
+  setup(props: any,context: any){
     // 参数props：是一个对象，里面有父组件向子组件传递，并且是在子组件中使用props接收的数据
-    // console.log(props.msg)
+    console.log(props.msg)
     // 参数context：是一个对象，里面有attrs对象（获取当前组件标签上的属性，但是该属性不能被props接收），emit方法（触发事件），slots对象（插槽）
     console.log(context)
 

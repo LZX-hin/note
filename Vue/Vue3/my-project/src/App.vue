@@ -1,31 +1,25 @@
 <template>
-  <h2>App父组件</h2>
-  <h3>{{msg}}</h3>
-  <button @click="msg+='---'">更新数据</button>
-  <hr />
-  <h2><Child :msg="msg" msg2="信息" class="child" @changeMsg="changeMsg"/></h2>
+  <h2>ref的另一个作用：可以获取页面中的元素</h2>
+  <input type="text" ref="inputRef"/>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue"
-import Child from './components/Child.vue'
+import {defineComponent,onMounted,ref} from "vue"
 export default defineComponent({
   name: 'App',
-  components: {
-    Child
-  },
+  // 需求：当页面加载完毕后，页面中的文本框可以直接获取焦点（自动获取焦点）
   setup(){
-    const msg = ref('what are you doing');
-    function changeMsg(value: string){
-      msg.value += value
-    }
-    return{
-      msg,
-      changeMsg
+    const inputRef = ref<HTMLElement|null>(null);
+    onMounted(()=>{
+      inputRef.value && inputRef.value.focus();
+    })
+    return {
+      inputRef
     }
   }
 })
 </script>
 
 <style lang="less" scoped>
+
 </style>
