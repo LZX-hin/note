@@ -1,25 +1,27 @@
 <template>
-  <h2>ref的另一个作用：可以获取页面中的元素</h2>
-  <input type="text" ref="inputRef"/>
+  <h2>响应式数据的判断</h2>
 </template>
 
 <script lang="ts">
-import {defineComponent,onMounted,ref} from "vue"
+import { defineComponent, ref, isRef, isReactive, reactive, isReadonly, readonly, isProxy } from "vue"
 export default defineComponent({
-  name: 'App',
-  // 需求：当页面加载完毕后，页面中的文本框可以直接获取焦点（自动获取焦点）
-  setup(){
-    const inputRef = ref<HTMLElement|null>(null);
-    onMounted(()=>{
-      inputRef.value && inputRef.value.focus();
-    })
-    return {
-      inputRef
+  setup() {
+    // isRef: 检查一个值是否为一个ref对象
+    // isReactive: 检查一个值是否是由reactive()创建的proxy对象
+    // isReadonly: 检查一个值是否是由readonly()创建的只读proxy
+    // isProxy: 检查一个值是否是由reactive()或readonly()创建的proxy对象
+
+    console.log(isRef((ref({})))) // true
+    console.log(isReactive(reactive({}))) // true
+    console.log(isReadonly(readonly({}))) // true
+    console.log(isProxy(readonly({}))) // true
+    console.log(isProxy(reactive({}))) // true
+    return{
+
     }
   }
 })
 </script>
 
 <style lang="less" scoped>
-
 </style>
