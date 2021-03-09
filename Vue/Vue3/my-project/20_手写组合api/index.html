@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./index.js"></script>
+  <script>
+    const proxyUser1 = shallowReactive({
+      name: '小明',
+      car: {
+        color: 'red'
+      }
+    })
+    // 拦截到了读和写的数据
+    // proxyUser1.name += '=='
+    // 拦截到了读取数据，但是拦截不到写的数据
+    // proxyUser1.car.color += '=='
+    // 拦截到了删除数据
+    // delete proxyUser1.name
+    // 只拦截到了读，但是拦截不到删除
+    // delete proxyUser1.car.color;
+
+    const proxyUser2 = reactive({
+      name: '小明',
+      car: {
+        color: 'red'
+      }
+    })
+    // 拦截到了读和写得数据
+    // proxyUser2.name += '=='
+    // 拦截到了读和写的数据
+    // proxyUser2.car.color = '=='
+    // 拦截到了删除数据
+    // delete proxyUser2.name
+    // 拦截到了嵌套对象的输出数据
+    // delete proxyUser2.car.color;
+
+    // ========================
+
+    // 测试shallowReadonly和readonly
+    const proxyUser3 = shallowReadonly({
+      name: '小明',
+      car: ['benz','BMW']
+    })
+    // 可以读取
+    // console.log(proxyUser3.name)
+    // 不能修改
+    // proxyUser3.name = '=='
+    // 不能删除
+    // delete proxyUser3.name;
+    // 拦截到了读取，可以对深度的数组/对象进行操作
+    // proxyUser3.car[0] = 'audi'
+    // 拦截到了读取，可以删除
+    // delete proxyUser3.car[0]
+
+    const proxyUser4 = readonly({
+      name: '小明',
+      car: ['benz','BMW']
+    })
+    // 拦截到了读取
+    // console.log(proxyUser4.name)
+    // console.log(proxyUser4.car[0])
+    // 只能读取数据，不能修改
+    // proxyUser4.name = '哈哈'
+    // 只能读取数据，不能修改
+    // proxyUser4.car[0] = 'haha'
+    // 只能读取数据，不能删除数据
+    // delete proxyUser4.name
+    // 只能读取数据，浅层和深层都不能删除数据
+    // delete proxyUser4.car[0] 
+
+    // ========================
+
+    const ref1 = shallowRef({
+      name: '小明',
+      car:{
+        color: 'red'
+      }
+    })
+    // console.log(ref1.value)
+    // 可以劫持到
+    // ref1.value = '=='
+    // 劫持不到修改
+    // ref1.value.car = '=='
+
+    const ref2 = ref({
+      name: '小明',
+      car:{
+        color: 'red'
+      }
+    })
+    // console.log(ref2.value)
+    // 劫持到修改
+    // ref2.value = '=='
+    // 劫持到
+    // ref2.value.car = '=='
+
+    console.log(isRef(ref({})))
+    console.log(isReactive(reactive({})))
+    console.log(isReadonly(readonly({})))
+    console.log(isProxy(reactive({})))
+    console.log(isProxy(readonly({})))
+
+  </script>
+</body>
+</html>
