@@ -1,7 +1,7 @@
 <template>
   <li @mouseenter="mouseHandler(true)" @mouseleave="mouseHandler(false)" :style="{backgroundColor: bgColor,color:myColor}">
     <label>
-      <input type="checkbox" :value="todo.isCompleted"/>
+      <input type="checkbox" v-model="todo.isCompleted"/>
       <span>{{todo.title}}</span>
     </label>
     <button class="btn btn-danger" v-show="isShow">删除</button>
@@ -9,14 +9,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent,ref } from "vue";
+import { computed, defineComponent,ref } from "vue";
 import {Todo} from '../types/todo';
 export default defineComponent({
   name: "Item",
   props: {
     todo: Object as () => Todo
   },
-  setup(){
+  setup(props,context){
     const bgColor = ref('white')
     const myColor = ref('black')
     const isShow = ref(false)
@@ -31,11 +31,26 @@ export default defineComponent({
         isShow.value = false
       }
     }
+    const isCompleted = computed({
+      get(){
+        if(props.todo){
+          return props.todo.isCompleted
+        }
+        return false
+      },
+      set(newValue: any){
+        // if(props.todo?.isCompleted){
+        //   props.todo.isCompleted = newValue;
+        // }
+        context.emit('update:todo',newValue)
+      }
+    })
     return {
       mouseHandler,
       bgColor,
       myColor,
-      isShow
+      isShow,
+      isCompleted
     }
   }
 });
