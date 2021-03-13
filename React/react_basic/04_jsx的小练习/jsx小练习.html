@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  </style>
+</head>
+<body>
+  <div id="test"></div>
+
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  
+  <script type="text/babel">
+    /*
+      一定注意区分 js语句（代码）与js表达式
+      1. 表达式：一个表达式会产生一个值，可以放在任何一个需要值的地方
+        例如：
+          (1). a
+          (2). a+b
+          (3). demo(1)
+          (4). arr.map()
+          (5). function test(){}
+      2. 语句（代码）:
+        例如：
+          (1). if() 判断语句 
+          (2). for() 循环语句
+          (3). switch(){case:xxx} 逻辑语句
+    */
+    // 模拟数据
+    const data = ['Angular','React','Vue']
+    // console.log(data.map(item => {
+    //           return <li>item</li>
+    //         }))
+    // 创建虚拟DOM
+    const VDOM = (
+      <div>
+        <h1>前端js框架列表</h1>
+        <ul>
+          {
+            data.map(item => {
+              return <li key={item}>{item}</li>
+            })
+          }
+        </ul>
+      </div>
+    )
+    // 渲染虚拟DOM
+    ReactDOM.render(VDOM,document.getElementById('test'))
+  </script>
+</body>
+</html>
