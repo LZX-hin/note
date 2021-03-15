@@ -1,6 +1,12 @@
 <template>
   <ul class="todo-main">
+<<<<<<< HEAD
     <Item v-for="(todo,index) in todos" :key="todo.id" :todo="todo" :deleteTodo="deleteTodo" :index="index" :updateTodo="updateTodo"/>
+=======
+    <template v-for="(todo) in todos">
+      <Item v-model:todo="todo" :key="todo.id"/>
+    </template>
+>>>>>>> 30b2643ad17c767d4f0b82030ca5b662bd675600
   </ul>
 </template>
 

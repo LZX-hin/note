@@ -1,7 +1,11 @@
 <template>
   <li @mouseenter="mouseHandler(true)" @mouseleave="mouseHandler(false)" :style="{backgroundColor: bgColor,color:myColor}">
     <label>
+<<<<<<< HEAD
       <input type="checkbox" v-model="isCompleted"/>
+=======
+      <input type="checkbox" v-model="todo.isCompleted"/>
+>>>>>>> 30b2643ad17c767d4f0b82030ca5b662bd675600
       <span>{{todo.title}}</span>
     </label>
     <button class="btn btn-danger" v-show="isShow" @click="delTodo">删除</button>
@@ -9,7 +13,11 @@
 </template>
 
 <script lang="ts">
+<<<<<<< HEAD
 import { defineComponent,ref,computed } from "vue";
+=======
+import { computed, defineComponent,ref } from "vue";
+>>>>>>> 30b2643ad17c767d4f0b82030ca5b662bd675600
 import {Todo} from '../types/todo';
 export default defineComponent({
   name: "Item",
@@ -31,7 +39,11 @@ export default defineComponent({
       required: true
     }
   },
+<<<<<<< HEAD
   setup(props){
+=======
+  setup(props,context){
+>>>>>>> 30b2643ad17c767d4f0b82030ca5b662bd675600
     const bgColor = ref('white')
     const myColor = ref('black')
     const isShow = ref(false)
@@ -46,6 +58,7 @@ export default defineComponent({
         isShow.value = false
       }
     }
+<<<<<<< HEAD
     const delTodo = ()=>{
       if(window.confirm('确定要删除吗？')){
         props.deleteTodo(props.index);
@@ -57,6 +70,20 @@ export default defineComponent({
       },
       set(val){
         props.updateTodo(props.todo, val)
+=======
+    const isCompleted = computed({
+      get(){
+        if(props.todo){
+          return props.todo.isCompleted
+        }
+        return false
+      },
+      set(newValue: any){
+        // if(props.todo?.isCompleted){
+        //   props.todo.isCompleted = newValue;
+        // }
+        context.emit('update:todo',newValue)
+>>>>>>> 30b2643ad17c767d4f0b82030ca5b662bd675600
       }
     })
     return {
@@ -64,7 +91,10 @@ export default defineComponent({
       bgColor,
       myColor,
       isShow,
+<<<<<<< HEAD
       delTodo,
+=======
+>>>>>>> 30b2643ad17c767d4f0b82030ca5b662bd675600
       isCompleted
     }
   }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3_虚拟DOM与真实DOM</title>
+</head>
+<body>
+  <!-- 准备一个“容器” -->
+  <div id="test"></div>
+  <div id="demo"></div>
+
+  <!-- 引入react核心库 -->
+  <script src="../js/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作DOM -->
+  <script src="../js/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script src="../js/babel.min.js"></script>
+
+  <script type="text/babel"> /* 这里一定要写type="text/babel" */
+    // 通过jsx创建虚拟DOM
+    const VDOM = ( // 括号代表里面的是一块
+      <h1 id="title">
+        <span>hello react</span>
+      </h1>
+    )
+    // 渲染虚拟节点
+    ReactDOM.render(VDOM,document.getElementById('test'))
+    // 虚拟DOM
+    // 1. 用js的对象来描述html节点
+    // 2. 相比于真实DOM，虚拟DOM操作起来的成本要低很多
+    // 3. 虚拟DOM最终会被React转换为真实DOM渲染到页面上
+    console.log('虚拟DOM',VDOM)
+    // console.log(VDOM instanceof Object)
+    const TDOM = document.getElementById('demo')
+    console.log('真实DOM',TDOM)
+    // debugger
+  </script>
+</body>
+</html>
