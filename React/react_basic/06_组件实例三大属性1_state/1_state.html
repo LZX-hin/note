@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    // 1.创建组件
+    class Weather extends React.Component{
+
+      // 问题一：构造器调用几次？ ———— 1次
+      constructor(props){
+        console.log('constructor')
+        super(props)
+        // 初始化状态state，React官方要求state要是一个对象
+        this.state = {
+          isHot: true,
+          wind: '微风'
+        }
+        // 解决changeWeather方法中this指向问题
+        this.changeWeather = this.changeWeather.bind(this)
+      }
+
+      // 问题二：render调用几次？ ———— 1+n次 1是初始化的那次，n是状态（state）更新的次数，比如在这里就是触发changeWeather()的次数
+      render(){
+        console.log('render')
+        /*
+          注意：React中的事件绑定
+          1. 绑定要用驼峰命名，如：onClick
+          2. 后面直接写函数名，不是函数调用，如：onClick={demo}
+        */ 
+        return <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热':'凉爽'}，{this.state.wind}</h1>
+      }
+
+      // 问题三：changeWeather调用几次？———— 点几次就调用几次
+      changeWeather(){
+        // changeWeather放在哪里？ ———— Weather的原型上
+        // 由于changeWeather方法是作为onClick的回调，不是通过实例调用的，而是直接调用的，所以this指向undefined（严格模式）
+        // 解决方法：
+        // 1. 在constructor中通过bind绑定changeWeather中的this的指向，并赋值给一个变量，onClick的回调指定这个变量
+        // 2. 在定义changeWeather方法时，用箭头函数：changeWeather = () => {...}
+        
+        // 修改数据，驱动页面更新显示：
+
+        // 错误写法：
+        // 严重注意：要更改页面，状态（state）不可直接更改，下面这行就是直接更改！
+        // this.state.isHot = !this.state.isHot; // 这就是直接更改，错误写法！
+        
+        // 正确写法：1. 状态必须通过setState()来修改，驱动页面更新（有点像小程序setData()）
+        // 2. 且setState()更新是你更新state对象的哪个属性就修改哪个属性，而不是把整个state对象替换掉
+        // 注意：传入到setState()中的是一个对象，这个对象指代的是this.state这个对象，所以可以直接在对象中写我们想要修改的属性
+        this.setState({
+          isHot: !this.state.isHot
+        })
+      }
+    }
+    // 2.渲染组件到页面
+    ReactDOM.render(<Weather/>,document.getElementById('test'))
+    
+    // 注意：在React中，下面这两种事件绑定尽量不要用
+    // const title = document.getElementById('title')
+    // title.addEventListener('click',()=>{
+    //   console.log('标题被点击了')
+    // })
+
+    // const title = document.getElementById('title')
+    // title.onclick = function(){
+    //   console.log('标题被点击了')
+    // }
+
+  </script>
+</body>
+</html>
