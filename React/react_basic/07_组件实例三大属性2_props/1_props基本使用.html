@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test1"></div>
+  <div id="test2"></div>
+  <div id="test3"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    // 创建组件
+    class Person extends React.Component{
+      render(){
+        // console.log(this)
+        return (
+          <ul>
+            <li>姓名: {this.props.name}</li>
+            <li>性别: {this.props.sex}</li>
+            <li>年龄: {this.props.age+1}</li>
+          </ul>
+        )
+      }
+    }
+    // 渲染组件
+    ReactDOM.render(<Person name="tom" age={19} sex="女"/>,document.getElementById('test1'))
+    ReactDOM.render(<Person name="jerry" age="18" sex="男"/>,document.getElementById('test2'))
+
+    const p = {name: '刘老',age: 18, sex: '男'}
+    // 一个个的传props
+    // ReactDOM.render(<Person name={p.name} age={p.age} sex={p.sex}/>,document.getElementById('test3'))
+
+    // 批量传props
+    ReactDOM.render(<Person {...p}/>,document.getElementById('test3')) 
+    // 严重注意：这里的{...p}的{}不是表示对象，而是jsx中使用js表达式时的{}，这里实际的js是...p
+    // 问题：原生es6中是不允许用...展开对象的，为什么这里...p又可以呢？
+    // 原因：引入了react.js和babel，所以能正确解析这段语法
+  </script>
+</body>
+</html>

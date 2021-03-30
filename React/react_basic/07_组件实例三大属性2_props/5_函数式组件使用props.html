@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test1"></div>
+  <div id="test2"></div>
+  <div id="test3"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <!-- 引入prop-types，用于对组件标签属性进行限制 -->
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+  <script type="text/babel">
+    // 创建函数式组件
+    function Person(props){
+      console.log(props)
+      const {name,sex,age} = props
+      return (
+        <ul>
+          <li>姓名：{name}</li>
+          <li>性别：{sex}</li>
+          <li>年龄：{age}</li>
+        </ul>
+      )
+    }
+    Person.propTypes = {
+      name: PropTypes.string.isRequired,
+      sex: PropTypes.string,
+      age: PropTypes.number
+    }
+    Person.defaultProps = {
+      sex: '男',
+      age: 18
+    }
+    // 渲染组件
+    ReactDOM.render(<Person name="jerry"/>,document.getElementById('test1'))
+
+    // 函数式组件可以使用props，但是不能使用state和refs
+    // 也可以通过propTypes和defaultProps限制props和设置props的默认值
+  </script>
+</body>
+</html>

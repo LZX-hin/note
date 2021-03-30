@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test1"></div>
+  <div id="test2"></div>
+  <div id="test3"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <!-- 引入prop-types，用于对组件标签属性进行限制 -->
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+  <script type="text/babel">
+    // 创建组件
+    class Person extends React.Component{
+      render(){
+        // console.log(this)
+        const {name,sex,age} = this.props
+        // 严重注意：props是只读的
+        // this.props.name = 'jack' // 此行代码会报错，因为props是只读的
+        return (
+          <ul>
+            <li>姓名: {name}</li>
+            <li>性别: {sex}</li>
+            <li>年龄: {age+1}</li>
+          </ul>
+        )
+      }
+    }
+    // 通过在类身上的propTypes对象来限制传入的props，包括数据类型、是否必填、默认值等...
+    Person.propTypes = {
+      // 因为引入了prop-types.js，所以可以直接拿到PropTypes
+      name: PropTypes.string.isRequired, // string表示为字符串，isRequired表示必传
+      sex: PropTypes.string,
+      age: PropTypes.number,
+      speak: PropTypes.func // 注意限制函数的写法，不是PropTypes.function而是PropTypes.func
+    }
+    // 设置props的默认值
+    Person.defaultProps = {
+      sex: '女', // sex默认值为'男'
+      age: 18 // age默认值为18
+    }
+    // 渲染组件
+    ReactDOM.render(<Person name="tom" speak={speak}/>,document.getElementById('test1'))
+    ReactDOM.render(<Person name="jerry" sex="女"/>,document.getElementById('test2'))
+
+    const p = {name: '刘老',age: 18, sex: '女'}
+    // 一个个的传props
+    // ReactDOM.render(<Person name={p.name} age={p.age} sex={p.sex}/>,document.getElementById('test3'))
+
+    // 批量传props
+    ReactDOM.render(<Person {...p}/>,document.getElementById('test3')) 
+    // 严重注意：这里的{...p}的{}不是表示对象，而是jsx中使用js表达式时的{}，这里实际的js是...p
+    // 问题：原生es6中是不允许用...展开对象的，为什么这里...p又可以呢？
+    // 原因：引入了react.js和babel，所以能正确解析这段语法
+
+    function speak(){
+      console.log('我说话了')
+    }
+  </script>
+</body>
+</html>

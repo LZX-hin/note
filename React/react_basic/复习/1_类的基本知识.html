@@ -47,11 +47,14 @@
       // 类中可以直接写赋值语句，如下代码的含义是：给car实例对象添加一个属性，key为a，value为1
       a=1
       wheel=4
+      static demo = 100
     }
     const c1 = new Car('奔驰c63',199)
-    const c2 = new Car('宝马',299)
+    // const c2 = new Car('宝马',299)
+    // console.log(c1)
+    // console.log(c2)
     console.log(c1)
-    console.log(c2)
+    console.log(Car.demo)
 
     /*
       总结：
