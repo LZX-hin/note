@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    // 创建组件
+    class Demo extends React.Component{
+
+      state={
+        isHot: false
+      }
+
+      showInfo = ()=>{
+        const {input1} = this;
+        alert(input1.value)
+      }
+      changeWeather = ()=>{
+        const {isHot} = this.state
+        this.setState({
+          isHot: !isHot
+        })
+      }
+      saveInput=(c)=>{
+        this.input1 = c
+      }
+      render(){
+        console.log('执行render')
+        const {isHot} = this.state
+        return (
+          <div>
+            <h2>今天天气很{isHot ? '炎热' : '凉爽'}</h2>
+            {/* 方式1：直接内联方式写回调ref */}
+            {/*<input ref={(c)=>{this.input1 = c;console.log('@',c)}} type="text"/><br/><br/>*/}
+            {/* 方式2：类绑定方法写回调ref */}
+            <input ref={this.saveInput} type="text"/><br/><br/>
+            <button onClick={this.showInfo}>点我提示输入的数据</button>
+            <button onClick={this.changeWeather}>点我切换天气</button>
+          </div>
+        )
+      }
+    }
+    // 渲染组件到页面
+    ReactDOM.render(<Demo/>,document.getElementById('test'))
+
+    // 两种写回调ref的方法，一般开发直接用内联ref回调就可以了，不会有什么影响
+  </script>
+</body>
+</html>
