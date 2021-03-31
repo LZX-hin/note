@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  <script src="../js/react.development.js"></script>
+  <script src="../js/react-dom.development.js"></script>
+  <script src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    /*
+      高阶函数：如果一个函数符合下面两个规范中的其中一个，就是高阶函数
+        1.若A函数，接收的参数是一个函数，那么A就是高阶函数
+        2.若A函数，它的返回值是一个函数，那么A就是高阶函数
+        常见的高阶函数有：Promise、定时器、数组api（filter、map、forEach、find等...）
+
+      函数柯里化：通过函数调用继续返回函数的方式，实现多次接收参数最后统一处理的函数编码方式
+    */
+    class Login extends React.Component{
+      state={
+        username: '',
+        password: ''
+      }
+      // 保存表单数据到状态中
+      // 这个saveFormData就是一个高阶函数
+      saveFormData=(type)=>{
+        // 这个返回的箭头函数，是作为change事件的回调，每次触发change的时候都会执行这个箭头函数
+        // 因为在react的jsx中，事件绑定的回调是直接写函数名的，而不是写一个函数的调用，所以这里最后要返回一个函数，作为回调函数
+
+        // 所以 要记住给onChange、onClick等事件指定回调的时候一定只能是一个函数就可以了 
+        return (e)=>{
+          // 闭包，所以随时能拿到父作用域的type
+          console.log(type,e.target.value)
+          this.setState({
+            [type]:e.target.value
+          })
+        }
+      }
+      handleSubmit=(e)=>{
+        e.prevetDefault()
+        const{username,password}=this.state
+        alert(username,password)
+      }
+      render(){
+        return (
+          <form onSubmit={this.handleSubmit}>
+            用户名：<input onChange={this.saveFormData('username')} type="text" name="username"/>
+            密码：<input onChange={this.saveFormData('password')} type="password" name="password"/>
+            <button>登录</button>
+          </form>
+        )
+      }
+    }
+    ReactDOM.render(<Login/>,document.getElementById('test'))
+  </script>
+</body>
+</html>
