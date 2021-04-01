@@ -12,6 +12,24 @@
   <script src="../js/react-dom.development.js"></script>
   <script src="../js/babel.min.js"></script>
   <script type="text/babel">
+
+    /*
+      1. 初始化阶段：由ReactDOM.render()触发 --- 初次渲染
+                1. constructor()
+                2. componentWillMount()
+                3. render()
+                4. componentDidMount() ======> 常用
+                    一般在这个钩子中做一些初始化的事，例如：开启定时器、发送网络请求、订阅消息
+      2. 更新阶段：由组件内部this.setState()或父组件重新render触发
+                1. shouldComponentUpdate()
+                2. componentWillUpdate()
+                3. render() ======> 必须
+                4. componentDidUpdate()
+      3. 卸载组件：由ReactDOM.unmountComponentAtNode()触发
+                1. componentWillUnmount() ======> 常用
+                    一般在这个钩子中做一些收尾的事，例如：关闭定时器、取消订阅消息
+    */
+
     // 创建组件
     class Count extends React.Component{
 
@@ -32,6 +50,10 @@
 
       death = ()=>{
         ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+      }
+
+      force = ()=>{
+        this.forceUpdate();
       }
 
       // 组件将要挂载
@@ -73,10 +95,69 @@
             <h2>当前求和为{this.state.count}</h2>
             <button onClick={this.add}>点我+1</button>
             <button onClick={this.death}>卸载组件</button>
+            <button onClick={this.force}>不更改任何状态的数据，强制更新</button>
           </div>
         )
       }
     }
+    
+    // 父组件A
+    class A extends React.Component{
+      state={
+        carName: 'BMW'
+      }
+      changeCar=()=>{
+        this.setState({
+          carName: 'AUDI'
+        })
+      }
+      render(){
+        return(
+          <div>
+            <div>A组件</div>
+            <button onClick={this.changeCar}>换车</button>
+            <B carName={this.state.carName}/>
+          </div>
+        )
+      }
+    }
+
+    // 子组件B
+    class B extends React.Component{
+      componentDidMount(){
+        console.log('B-componentDidMount')
+      }
+      // 这个是组件将要接收props时触发的
+      /*
+        注意：
+          1.如果是第一次传props是不会触发，后面传props才会触发，比如父组件重新render了，导致B组件也重新渲染，导致重新传数据，就是第二次接收props了，就会触发componentWillReceiveProps
+          2.这个钩子函数可以接收参数propsz
+      */
+      componentWillReceiveProps(props){
+        console.log('B-componentWillReceiveProps')
+        console.log(props)
+      }
+      shouldComponentUpdate(){
+        console.log('B-shouldComponentUpdate')
+        return true
+      }
+      componentWillUpdate(){
+        console.log('B-componentWillUpdate')
+      }
+      componentDidUpdate(){
+        console.log('B-componentDidUpdate')
+      }
+      componentWillUnmount(){
+        console.log('B-componentWillUnmount')
+      }
+      render(){
+        console.log('B-render')
+        return(
+          <div>B组件，接受到的车是：{this.props.carName}</div>
+        )
+      }
+    }
+    
     // 渲染组件
     ReactDOM.render(<Count/>,document.getElementById('test'))
   </script>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  <script src="../js/17.0.1/react.development.js"></script>
+  <script src="../js/17.0.1/react-dom.development.js"></script>
+  <script src="../js/17.0.1/babel.min.js"></script>
+  <script type="text/babel">
+
+    /*
+      新的生命周期（17.x）与旧的生命周期（16.x）的区别：
+        1. 即将废弃3个钩子：componentWillMount()、componentWillUpdate()、componentWillReceiveProps()
+        2. 提出两个新的钩子：getDerivedStateFromProps()、getSnapshotBeforeUpdate()
+        3. react官方说上面两个新增的钩子几乎用不到
+    */
+
+    // 创建组件
+    class Count extends React.Component{
+
+      constructor(props){
+        super(props)
+        console.log('Count-constructor')
+        // 初始化状态
+        this.state = {
+          count: 0
+        }
+      }
+
+      add = ()=>{
+        this.setState({
+          count: ++this.state.count
+        })
+      }
+
+      death = ()=>{
+        ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+      }
+
+      force = ()=>{
+        this.forceUpdate();
+      }
+
+
+      // 若state的值什么时候（包括初始化渲染和更新）都取决于props，可以使用这个钩子
+      // 但这个钩子不是首选方案，如果是state取决于props，可以在构造器中接收props然后设置this.state = props即可
+      // 严重注意：这个钩子会导致代码冗余，并使组件难以维护
+      static getDerivedStateFromProps(props,state){
+        console.log('Count-getDerivedStateFromProps',props,state)
+        return null
+      }
+
+      // 在更新之前获取快照，react官方表示这用法也是不常用
+      getSnapshotBeforeUpdate(){
+        console.log('Count-getSnapshotBeforeUpdate')
+        return 1
+      }
+
+      // 组件挂载完毕
+      componentDidMount(){
+        console.log('Count-componentDidMount')
+      } 
+
+      // 组件将要卸载
+      componentWillUnmount(){
+        console.log('Count-componentWillUnmount')
+      }
+
+      // showComponentUpdate()相当于一个控制更新的阀门，在调用setState()之后触发，默认返回true，如果返回false，则无法更新页面
+      // 在开发者不写shouldComponentUpdate()时，是默认为true的，如果写了这个钩子，则函数内必须返回一个布尔值
+      shouldComponentUpdate(){
+        console.log('Count-shouldComponentUpdate')
+        return true
+      }
+
+      // 组件更新完毕
+      componentDidUpdate(prevProps,prevState,snapshotValue){
+        console.log('Count-componentDidUpdate',prevProps,prevState,snapshotValue)
+      }
+
+      render(){
+        console.log('Count-render')
+        return (
+          <div>
+            <h2>当前求和为{this.state.count}</h2>
+            <button onClick={this.add}>点我+1</button>
+            <button onClick={this.death}>卸载组件</button>
+            <button onClick={this.force}>不更改任何状态的数据，强制更新</button>
+          </div>
+        )
+      }
+    }
+    // 渲染组件
+    ReactDOM.render(<Count count={199}/>,document.getElementById('test'))
+  </script>
+</body>
+</html>
