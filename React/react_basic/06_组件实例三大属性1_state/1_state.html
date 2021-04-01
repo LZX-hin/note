@@ -56,6 +56,7 @@
         // 正确写法：1. 状态必须通过setState()来修改，驱动页面更新（有点像小程序setData()）
         // 2. 且setState()更新是你更新state对象的哪个属性就修改哪个属性，而不是把整个state对象替换掉
         // 注意：传入到setState()中的是一个对象，这个对象指代的是this.state这个对象，所以可以直接在对象中写我们想要修改的属性
+        // 严重注意：每次setState()都会触发render函数更新页面
         this.setState({
           isHot: !this.state.isHot
         })
