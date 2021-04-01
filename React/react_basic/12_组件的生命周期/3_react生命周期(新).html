@@ -14,10 +14,28 @@
   <script type="text/babel">
 
     /*
-      新的生命周期（17.x）与旧的生命周期（16.x）的区别：
-        1. 即将废弃3个钩子：componentWillMount()、componentWillUpdate()、componentWillReceiveProps()
-        2. 提出两个新的钩子：getDerivedStateFromProps()、getSnapshotBeforeUpdate()
-        3. react官方说上面两个新增的钩子几乎用不到
+      1. 初始化阶段：由ReactDOM.render()触发 --- 初次渲染
+                1. constructor()
+                2. getDerivedStateFromProps()
+                3. render()
+                4. componentDidMount() ======> 常用
+                    一般在这个钩子中做一些初始化的事，例如：开启定时器、发送网络请求、订阅消息
+      2. 更新阶段：由组件内部this.setState()或父组件重新render触发
+                1. getDerivedStateFromProps()
+                2. shouldComponentUpdate()
+                3. render()
+                4. componentDidUpdate()
+      3. 卸载组件：由ReactDOM.unmountComponentAtNode()触发
+                1. componentWillUnmount() ======> 常用
+                    一般在这个钩子中做一些收尾的事，例如：关闭定时器、取消订阅消息
+    */
+
+    /*
+      即将废弃的钩子：
+        1. componentWillMount()
+        2. componentWillReceiveProps()
+        3. componentWillUpdate()
+        在React 17.x 这些钩子前面要加上UNSAFE_的前缀才能使用
     */
 
     // 创建组件
