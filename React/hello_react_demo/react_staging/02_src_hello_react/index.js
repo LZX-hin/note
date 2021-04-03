@@ -1,5 +1,9 @@
+// 引入react核心库
 import React from 'react'
+// 引入react-dom
 import ReactDOM from 'react-dom'
-import App from './App'
+// 引入App组件
+import App from './App.jsx'
 
+// 渲染App到页面
 ReactDOM.render(<App/>,document.getElementById('root'))
