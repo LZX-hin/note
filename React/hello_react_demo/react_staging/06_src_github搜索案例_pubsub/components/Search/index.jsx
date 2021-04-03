@@ -7,7 +7,7 @@ export default class Search extends Component {
         const {keyWordElement:{value:keyWord}} = this
         // 通过PubSub发布消息
         PubSub.publish('atguigu',{isFirst:false,isLoading:true})
-        axios.get(`/api1/search/users2?q=${keyWord}`).then(r => {
+        axios.get(`/api1/search/users?q=${keyWord}`).then(r => {
             // 通过PubSub发布消息
             PubSub.publish('atguigu',{isLoading:false,users:r.data.items})
         },err => {

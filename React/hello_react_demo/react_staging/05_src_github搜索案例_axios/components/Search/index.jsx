@@ -1,17 +1,25 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import PubSub from 'pubsub-js'
 
 export default class Search extends Component {
     search = ()=>{
-        const {keyWordElement:{value:keyWord}} = this
-        // 通过PubSub发布消息
-        PubSub.publish('atguigu',{isFirst:false,isLoading:true})
-        axios.get(`/api1/search/users2?q=${keyWord}`).then(r => {
-            // 通过PubSub发布消息
-            PubSub.publish('atguigu',{isLoading:false,users:r.data.items})
+        // 连续结构赋值
+        const {keyWordElement:{value}} = this
+        // 发送请求前通知App组件更新状态
+        this.props.updateAppState({
+            isFirst: false,
+            isLoading: true
+        })
+        axios.get(`http://localhost:3000/api1/search/users?q=${value}`).then(r=>{
+            this.props.updateAppState({
+                isLoading: false,
+                users: r.data.items
+            })
         },err => {
-            PubSub.publish('atguigu',{isLoading:false,err:err.message})
+            this.props.updateAppState({
+                isLoading: false,
+                err
+            })
         })
     }
     render() {
