@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route,Switch,Redirect } from 'react-router-dom'
+import { Route,Switch } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Header from './components/Header/index'
@@ -23,7 +23,7 @@ export default class App extends Component {
 
                             {/* 在React中靠路由链接实现切换组件 ———— 编写路由链接 */}
                             <MyNavLink to="/about" a={1} b={2}>About</MyNavLink>
-                            <MyNavLink to="/home">Home</MyNavLink>
+                            <MyNavLink to="/home/a/b">Home</MyNavLink>
                         </div>
                     </div>
                     <div className="col-xs-6">
@@ -31,10 +31,9 @@ export default class App extends Component {
                             <div className="panel-body">
                                 {/* 注册路由 */}
                                 <Switch>
-                                    <Route path="/about" component={About}></Route> 
-                                    <Route path="/home" component={Home}></Route>
-                                    {/* Redirect重定向相当于兜底，当前面的路由没有匹配上，就会去到Redirect中to属性指定的路由 */}
-                                    <Redirect to="/about"></Redirect>
+                                    {/* 在Route标签上加上属性 exact={true} */}
+                                    <Route exact={true} path="/about" component={About}></Route> 
+                                    <Route exact={true} path="/home" component={Home}></Route>
                                 </Switch>
                             </div>
                         </div>

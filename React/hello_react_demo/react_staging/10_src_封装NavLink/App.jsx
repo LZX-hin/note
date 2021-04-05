@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route,Switch,Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Header from './components/Header/index'
@@ -30,12 +30,8 @@ export default class App extends Component {
                         <div className="panel">
                             <div className="panel-body">
                                 {/* 注册路由 */}
-                                <Switch>
-                                    <Route path="/about" component={About}></Route> 
-                                    <Route path="/home" component={Home}></Route>
-                                    {/* Redirect重定向相当于兜底，当前面的路由没有匹配上，就会去到Redirect中to属性指定的路由 */}
-                                    <Redirect to="/about"></Redirect>
-                                </Switch>
+                                <Route path="/about" component={About}></Route>
+                                <Route path="/home" component={Home}></Route>
                             </div>
                         </div>
                     </div>
