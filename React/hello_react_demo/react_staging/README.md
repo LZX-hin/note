@@ -132,7 +132,7 @@
 						(2).HashRouter刷新后会导致路由state参数的丢失！！！
 			4.备注：HashRouter可以用于解决一些路径错误相关的问题。
 
-## 十四、antd的按需引入+自定主题
+## 十四、antd的按需引入+自定主题(下面写的是适合antd3.x版本，现在4.x版本按着官网配置就好了)
 			1.安装依赖：yarn add react-app-rewired customize-cra babel-plugin-import less less-loader
 			2.修改package.json
 					....
