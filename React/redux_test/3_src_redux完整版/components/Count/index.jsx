@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 // 引入store，用于获取redux中状态
 import store from '../../redux/store'
+// 引入actionCreator，专门用于创建action对象
+import {createIncrementAction, createDecrementAction} from '../../redux/count_action'
 
 export default class Count extends Component {
   state = {
@@ -18,35 +20,23 @@ export default class Count extends Component {
   increment=()=>{
     const {value} = this.selectNumber;
     // 通过redux加value
-    store.dispatch({
-      type: 'increment',
-      data: +value
-    })
+    store.dispatch(createIncrementAction(+value))
   }
   decrement=()=>{
     const {value} = this.selectNumber
-    store.dispatch({
-      type: 'decrement',
-      data: +value
-    })
+    store.dispatch(store.dispatch(createDecrementAction(+value)))
   }
   incrementIfOdd=()=>{
     const {value} = this.selectNumber
     const count = store.getState();
     if(count%2 != 0){
-      store.dispatch({
-        type: 'increment',
-        data: +value
-      })
+      store.dispatch(createIncrementAction(+value))
     }
   }
   incrementAsync=()=>{
     const {value} = this.selectNumber
     setTimeout(()=>{
-      store.dispatch({
-        type: 'increment',
-        data: +value
-      })
+      store.dispatch(createIncrementAction(+value))
     },500)
   }
   render() {
