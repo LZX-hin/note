@@ -76,12 +76,20 @@
 					合并后的总状态是一个对象！！！
 			(4).交给store的是总reducer，最后注意在组件中取出状态的时候，记得“取到位”。
 
-## 7.求和案例_react-redux开发者工具的使用
+## 7.纯函数，（特别提醒：redux中的reducer函数必须是一个纯函数）
+      (1).一类特别的函数：只要是同样的输入(参数)，就必须得到同样的输出(返回值)
+      (2).必须遵守以下的约束：
+          1) 不能修改参数数据，比如数组的unshift()、push()这些改变原数组的api
+          2) 不会产生任何副作用，例如网络请求，输入和输出设备
+          3) 不能调用Date.now()或Math.random()等不纯的方法
+      (3).redux中的reducer函数必须是一个纯函数！！！！！！！！！！
+
+## 8.求和案例_react-redux开发者工具的使用
 			(1).yarn add redux-devtools-extension
 			(2).store中进行配置
 					import {composeWithDevTools} from 'redux-devtools-extension'
 					const store = createStore(allReducer,composeWithDevTools(applyMiddleware(thunk)))
 
-## 8.求和案例_react-redux最终版
+## 9.求和案例_react-redux最终版
 			(1).所有变量名字要规范，尽量触发对象的简写形式。
 			(2).reducers文件夹中，编写index.js专门用于汇总并暴露所有的reducer

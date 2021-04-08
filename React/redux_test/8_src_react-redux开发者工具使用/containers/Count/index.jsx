@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {increment, decrement, incrementAsync} from '../../redux/actions/count'
+import {createIncrementAction, createDecrementAction, createIncrementAsyncAction} from '../../redux/actions/count'
 
 class Count extends Component {
   state = {
@@ -47,8 +47,8 @@ class Count extends Component {
 export default connect(
   state=>({count:state.count,persons:state.persons.length}),
   {
-    increment,
-    decrement,
-    incrementAsync,
+    increment: createIncrementAction,
+    decrement: createDecrementAction,
+    incrementAsync: createIncrementAsyncAction,
   }
 )(Count)
