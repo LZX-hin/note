@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import Demo from './components/6_src_PureComponent'
+import Demo from './components/8_src_ErrorBoundary/Parent'
 
 export default class App extends Component {
   render() {

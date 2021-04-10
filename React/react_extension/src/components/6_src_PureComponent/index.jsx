@@ -3,10 +3,10 @@ import './index.css'
 
 export default class Parent extends PureComponent {
   state = {
-    carName:'bmw',
-    students: ['小刘','小张','小红']
+    carName: 'bmw',
+    students: ['小刘', '小张', '小红']
   }
-  changeCar = ()=>{
+  changeCar = () => {
     // 1.正常写法，页面正常更新
     // 这种写法this.setState()里面的对象和this.state是完全两个不同的对象，react监测到state变化了，就调用render更新页面
     this.setState({
@@ -19,11 +19,18 @@ export default class Parent extends PureComponent {
     // obj.carName = 'audi'
     // this.setState(obj)
   }
-  addStudent = ()=>{
+  addStudent = () => {
     // 正确写法
-    this.setState({
-      students: [...this.state.students,'小陈']
-    })
+    //1.
+    // this.setState({
+    //   students: [...this.state.students,'小陈']
+    // })
+    //2.
+    // const students = JSON.parse(JSON.stringify(this.state.students))
+    // students.push('小陈');
+    // this.setState({
+    //   students
+    // })
 
     // 错误写法
     // 原因：在this.setState()中对象中的students和外面解构获取的students是同一个数组，因此react监测不了两者的变化，不会调用render更新页面
@@ -40,13 +47,13 @@ export default class Parent extends PureComponent {
   // }
 
   render() {
-    const {carName} = this.state
+    const { carName } = this.state
     console.log('Parent调用render')
     return (
       <div className="parent">
         <h3>我是Parent组件</h3>
         <span>学生：{this.state.students}</span>&nbsp;
-        <span>我的车名字是：{carName}</span><br/>
+        <span>我的车名字是：{carName}</span><br />
         <button onClick={this.changeCar}>点我换车</button>
         <button onClick={this.addStudent}>点我添加学生</button>
         <Child carName='奥拓'></Child>
