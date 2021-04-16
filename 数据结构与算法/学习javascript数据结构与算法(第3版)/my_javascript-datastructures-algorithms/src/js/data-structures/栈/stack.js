@@ -101,7 +101,33 @@ function decimalToBinary(decNumber){
 }
 
 // test
-console.log(decimalToBinary(233))
-console.log(decimalToBinary(7))
+// console.log(decimalToBinary(233))
+// console.log(decimalToBinary(7))
 
 // 2) 进制转换算法
+// 基于穿进去的数为基数进行进制转换
+function baseConverter(decNumber, base){
+  const remStack = new Stack();
+  const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let number = decNumber;
+  let rem;
+  let baseString = '';
+  if(!(base >= 2 && base <= 36)){
+    return '';
+  }
+
+  while(number > 0){
+    rem = Math.floor(number % base)
+    remStack.push(rem)
+    number = Math.floor(number / base)
+  }
+
+  while(!remStack.isEmpty()){
+    baseString += digits[remStack.pop()]
+  }
+
+  return baseString;
+}
+
+console.log(baseConverter(1000345,2))
+console.log(baseConverter(17,16))
