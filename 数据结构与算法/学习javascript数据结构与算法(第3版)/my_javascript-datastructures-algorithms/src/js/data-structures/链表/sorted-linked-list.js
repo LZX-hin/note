@@ -14,7 +14,7 @@ function defaultCompare(a,b){
 }
 
 // 有序链表：指保持元素有序的链表结构。将元素插入到正确位置来保证链表的有序性。
-class SortedLinkedList extends LinkedList {
+export default class SortedLinkedList extends LinkedList {
   constructor(equalsFn = defaultEquals, compareFn = defaultCompare){
     super(equalsFn)
     this.compareFn = compareFn

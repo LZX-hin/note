@@ -15,7 +15,7 @@ class DoublyNode extends Node {
     2.在单向链表中，如果迭代时错过了要找的元素，就需要回到起点，重新迭代。这是双向链表的优势
 */
 
-class DoublyLinkedList extends LinkedList {
+export default class DoublyLinkedList extends LinkedList {
   constructor(equalsFn = defaultEquals){
     super(equalsFn)
     // 保存链表中最后一个元素
