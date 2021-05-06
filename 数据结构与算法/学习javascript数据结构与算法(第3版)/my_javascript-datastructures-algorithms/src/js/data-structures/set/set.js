@@ -1,7 +1,7 @@
 /*
   集合Set是一个没有重复元素且无序的数据结构
 */
-class Set{
+export default class Set{
   constructor(){
     this.items = {}
   }
@@ -54,52 +54,30 @@ class Set{
     }
     return intersectionSet
   }
+  // 差集
+  difference(otherSet){
+    const differenceSet = new Set()
+    this.values().forEach(item => {
+      if(!otherSet.has(item)){
+        differenceSet.add(item)
+      }
+    })
+    return differenceSet
+  }
+  // 子集
+  isSubsetOf(otherSet){
+    if(this.size() > otherSet.size()){
+      return false
+    }
+    let isSubset = true
+    this.values().every(value=>{
+      if(!otherSet.has(value)){
+        isSubset = false
+        return false
+      }
+      return true
+    })
+    return isSubset
+  }
 }
 
-// test
-// 使用Set类
-// const set = new Set()
-// set.add(1)
-// console.log(set.values())
-// console.log(set.has(1))
-// console.log(set.size())
-
-// set.add(2)
-// console.log(set.values())
-// console.log(set.has(2))
-// console.log(set.size())
-
-// set.delete(1)
-// console.log(set.values())
-
-// set.delete(2)
-// console.log(set.values())
-
-// 并集
-// const setA = new Set()
-// setA.add(1)
-// setA.add(2)
-// setA.add(3)
-
-// const setB = new Set()
-// setB.add(3)
-// setB.add(4)
-// setB.add(5)
-// setB.add(6)
-
-// const unionAB = setA.union(setB)
-// console.log(unionAB.values())
-
-// 交集
-const setA = new Set()
-setA.add(1)
-setA.add(2)
-setA.add(3)
-
-const setB = new Set()
-setB.add(2)
-setB.add(3)
-setB.add(4)
-
-const intersectionAB = setA.intersection(setB)
-console.log(intersectionAB.values())
